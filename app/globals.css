@@ -28,3 +28,44 @@ body {
   background-color: #f9fafb;
   font-family: 'Inter', sans-serif;
 }
+/* Card styling */
+.card {
+  @apply bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition flex flex-col max-w-xs mx-auto;
+}
+
+.card-image {
+  @apply w-full h-28 overflow-hidden rounded-md cursor-pointer;
+}
+
+.card-img {
+  @apply w-full h-full object-cover;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-gray-800;
+}
+
+.card-description {
+  @apply text-sm text-gray-500 mt-1;
+}
+
+.card-price {
+  @apply text-base font-bold text-gray-800 mt-2;
+}
+
+.card-button {
+  @apply snipcart-add-item bg-amber-500 hover:bg-amber-600 text-black font-bold px-4 py-2 rounded mt-3;
+}
+
+/* Lightbox modal */
+.lightbox-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50;
+}
+
+.lightbox-content {
+  @apply bg-white rounded-lg p-6 max-w-3xl w-full relative;
+}
+
+.lightbox-img {
+  @apply w-full h-48 object-cover rounded-md shadow-lg;
+}
