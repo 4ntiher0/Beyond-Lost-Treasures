@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
         <div
           hidden
           id="snipcart"
-          data-api-key="YOUR_PUBLIC_API_KEY"
+          data-api-key="MWNmODFjZDYtNzdkNi00YjVmLWEwMzQtMGFjMTI2NWFiYjEwNjM4OTU5MjE1OTAzMzU0NTkz"
           data-config-modal-style="side"
         ></div>
       </body>
