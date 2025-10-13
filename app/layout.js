@@ -7,7 +7,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" 
+          data-google-analytics-opt-out=""
+          data-darkreader-mode="dynamic"
+          data-darkreader-scheme="dark"
+          data-darkreader-proxy-injected="true" >
+      
       <head>
         {/* Snipcart Styles & Script */}
         <link
