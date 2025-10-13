@@ -103,52 +103,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-
-      {/* Lightbox Modal */}
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50"
-          onClick={closeLightbox}
-        >
-          <div
-            className="bg-white rounded-lg p-6 max-w-3xl w-full relative flex items-center justify-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-lg"
-              onClick={closeLightbox}
-            >
-              ×
-            </button>
-
-            {/* Left arrow */}
-            {currentImages.length > 1 && (
-              <button
-                className="absolute left-2 text-gray-600 hover:text-gray-900 text-2xl font-bold"
-                onClick={prevImage}
-              >
-                ‹
-              </button>
-            )}
-
-            <img
-              src={currentImages[currentIndex]}
-              alt={`Lightbox ${currentIndex}`}
-              className="w-full h-64 object-cover rounded-md shadow-lg"
-            />
-
-            {/* Right arrow */}
-            {currentImages.length > 1 && (
-              <button
-                className="absolute right-2 text-gray-600 hover:text-gray-900 text-2xl font-bold"
-                onClick={nextImage}
-              >
-                ›
-              </button>
-            )}
-          </div>
-        </div>
-      )}
     </section>
   );
 }
