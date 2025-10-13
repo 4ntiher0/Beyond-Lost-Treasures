@@ -28,15 +28,27 @@ export default function Home() {
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImages, setCurrentImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const openLightbox = (images) => {
     setCurrentImages(images);
+    setCurrentIndex(0);
     setLightboxOpen(true);
   };
 
   const closeLightbox = () => {
     setLightboxOpen(false);
     setCurrentImages([]);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === 0 ? currentImages.length - 1 : prev - 1));
+  };
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev === currentImages.length - 1 ? 0 : prev + 1));
   };
 
   return (
@@ -58,7 +70,6 @@ export default function Home() {
             key={p.id}
             className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition flex flex-col max-w-xs mx-auto"
           >
-            {/* Main image */}
             <div
               className="w-full h-40 overflow-hidden rounded-md cursor-pointer"
               onClick={() => openLightbox(p.images)}
@@ -70,7 +81,6 @@ export default function Home() {
               />
             </div>
 
-            {/* Product info */}
             <div className="mt-3 flex-grow">
               <h3 className="text-lg font-semibold text-gray-800">{p.name}</h3>
               <p className="text-sm text-gray-500 mt-1">{p.description}</p>
@@ -79,7 +89,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Add to Cart button */}
             <button
               className="snipcart-add-item bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-3 rounded mt-4 w-full"
               data-item-id={p.id}
@@ -95,35 +104,58 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Lightbox Modal */}
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex items-center justify-center z-50"
-          onClick={closeLightbox} // click outside to close
+{lightboxOpen && (
+  <div
+    className="fixed inset-0 flex items-center justify-center z-50"
+    onClick={closeLightbox}
+  >
+    {/* Overlay with blur */}
+    <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
+
+    {/* Modal content */}
+    <div
+      className="relative z-10 max-w-3xl w-full p-6 bg-white/90 rounded-lg flex flex-col items-center"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close button */}
+      <button
+        className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 font-bold text-lg"
+        onClick={closeLightbox}
+      >
+        ×
+      </button>
+
+      {/* Left arrow */}
+      {currentImages.length > 1 && (
+        <button
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700 hover:text-gray-900 text-2xl font-bold"
+          onClick={prevImage}
         >
-          <div
-            className="bg-white rounded-lg p-6 max-w-3xl w-full relative"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
-          >
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 font-bold text-lg"
-              onClick={closeLightbox}
-            >
-              ×
-            </button>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {currentImages.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`Lightbox ${idx}`}
-                  className="w-full h-48 object-cover rounded-md shadow-lg"
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+          ‹
+        </button>
       )}
+
+      {/* Current image */}
+      <img
+        src={currentImages[currentIndex]}
+        alt={`Lightbox ${currentIndex}`}
+        className="w-full h-64 sm:h-80 object-cover rounded-md shadow-lg"
+      />
+
+      {/* Right arrow */}
+      {currentImages.length > 1 && (
+        <button
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700 hover:text-gray-900 text-2xl font-bold"
+          onClick={nextImage}
+        >
+          ›
+        </button>
+      )}
+    </div>
+  </div>
+)}
+
+
     </section>
   );
 }
