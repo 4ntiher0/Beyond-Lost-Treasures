@@ -1,0 +1,30 @@
+name: Daily Product Update
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # Every day at 3 AM UTC
+  workflow_dispatch: # allows manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm install node-fetch@3
+
+      - name: Run update script
+        run: node scripts/updateProducts.js
+
+      - name: Push updated products.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🛒 Auto-update products.json"
+          branch: main
