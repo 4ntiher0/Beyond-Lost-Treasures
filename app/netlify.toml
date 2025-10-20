@@ -1,0 +1,9 @@
+[functions]
+  directory = "netlify/functions"
+
+[[plugins]]
+  package = "@netlify/plugin-scheduled-functions"
+
+[[scheduled-functions]]
+  function = "updateProducts"
+  schedule = "0 2 * * *" # Runs every day at 2am UTC
