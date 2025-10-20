@@ -38,20 +38,22 @@ export default function ProductPage({ params }) {
           {isSold && <p className="text-red-600 font-bold mt-2">Sold Out</p>}
 
           {!isSold && (
-            <button
-              className="snipcart-add-item bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-3 rounded mt-4 w-full"
-              data-item-id={slug}
-              data-item-price={parseFloat(product["Sale Price"].replace("$", ""))}
-              data-item-name={product["Item Name"]}
-              data-item-description={product.Category}
-              data-item-url={`${BASE_URL}/products/${slug}`}
-              data-item-image={product.Image || "https://via.placeholder.com/400x400?text=No+Image"}
-              data-item-quantity="1"
-              data-item-max-quantity="1"
-            >
-              Add to Cart
-            </button>
-          )}
+  <button
+    className="snipcart-add-item bg-amber-500 hover:bg-amber-600 text-black font-bold px-5 py-3 rounded mt-4 w-full"
+    data-item-id={slug}
+    data-item-price={parseFloat(product["Sale Price"].replace("$", ""))}
+    data-item-name={product["Item Name"]}
+    data-item-description={product.Category}
+    data-item-url={`/products/${slug}`}
+    data-item-image={product.Image || "https://via.placeholder.com/400x400?text=No+Image"}
+    data-item-quantity="1"
+    data-item-max-quantity="1"
+    data-item-min-quantity="1"
+  >
+    Add to Cart
+  </button>
+)}
+
         </div>
       </div>
     </section>
