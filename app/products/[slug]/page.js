@@ -1,26 +1,20 @@
 "use client";
-import { useEffect, useState } from "react";
+import products from "../../../public/products.json";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
-export default function ProductPage() {
-  const params = useParams();
+// Absolute base URL of your site
+const BASE_URL = "https://beyond-lost-treasures.netlify.app";
+
+export default function ProductPage({ params }) {
   const { slug } = params;
-  const [product, setProduct] = useState(null);
 
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((products) => {
-        const found = products.find(
-          (p) => p["Item Name"].toLowerCase().replace(/\s+/g, "-") === slug
-        );
-        setProduct(found || null);
-      })
-      .catch((err) => console.error("Failed to load product:", err));
-  }, [slug]);
+  const product = products.find(
+    (p) => p["Item Name"].toLowerCase().replace(/\s+/g, "-") === slug
+  );
 
-  if (!product) return <p className="p-6">Product not found.</p>;
+  if (!product) {
+    return <p className="p-6">Product not found.</p>;
+  }
 
   const isSold = product.Status === "Sold";
 
@@ -49,9 +43,11 @@ export default function ProductPage() {
               data-item-id={slug}
               data-item-price={parseFloat(product["Sale Price"].replace("$", ""))}
               data-item-name={product["Item Name"]}
-              data-item-url={`/products/${slug}`}
               data-item-description={product.Category}
+              data-item-url={`${BASE_URL}/products/${slug}`}
               data-item-image={product.Image || "https://via.placeholder.com/400x400?text=No+Image"}
+              data-item-quantity="1"
+              data-item-max-quantity="1"
             >
               Add to Cart
             </button>
