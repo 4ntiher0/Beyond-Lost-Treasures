@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 import { execSync } from "child_process";
 
 async function updateProducts() {
-  const sheetUrl = "https://opensheet.elk.sh/<your-sheet-id>/Products";
+  const sheetUrl = "https://opensheet.elk.sh/1XcLtt6gG7TcX4-rQ9xUTvF2_IgyjR5ZBgRnVFDbS1qE/Inventory";
 
   const res = await fetch(sheetUrl);
   const products = await res.json();
